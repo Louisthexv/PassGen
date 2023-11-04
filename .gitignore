@@ -163,5 +163,6 @@ cython_debug/
 #.idea/
 
 # Text Files for the Dictionary and CVS file
-.txt
-.cvs
+.DS_Store
+input.csv
+output.csv
