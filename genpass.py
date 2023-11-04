@@ -19,7 +19,7 @@ def sanitize(word):
 def generate_passphrase(dictionaries):
     word1 = sanitize(random.choice(dictionaries))
     word2 = sanitize(random.choice(dictionaries))
-    random_number = random.randint(99, 9999)
+    random_number = random.randint(10, 9999)
     return f"{word1}-{word2}-{random_number:04d}"
 
 # Read the input CSV file
@@ -31,7 +31,7 @@ def read_csv_file(input_file):
             data.append(row)
     return data
 
-# Update the CSV data with new passwords starting from column C2
+# Update the CSV data with new passwords starting from column D2
 def update_csv_data(data, dictionaries):
     for row in data[1:]:
         row.append(generate_passphrase(dictionaries))
@@ -50,7 +50,8 @@ if __name__ == "__main__":
 
     spanish_words = [sanitize(word) for word in load_spanish_dictionary(spanish_dictionary_file)]
     data = read_csv_file(input_file)
-    data[0].append("new_password")  # Add "new_password" to the header
+    # Ensure the original "new_password" remains in D1
+    data[0].append("new_password")
     update_csv_data(data, spanish_words)
     create_new_csv(data, output_file)
     print(f"New passwords have been generated and saved in {output_file}.")
